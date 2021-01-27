@@ -289,7 +289,7 @@ export default class SideMenu extends Component<Props, State> {
         self.activeParentPath(item)
         self.setState({ itemTree: itemTree })
         // eslint-disable-next-line
-      } 
+      }
       // we deactivate the item if it is active and does not have children
       else if (!isLeaf) {
         item.active = false
@@ -355,22 +355,22 @@ export default class SideMenu extends Component<Props, State> {
   renderItem (item: JSONStateTreeItem, level: number) {
     if (item.divider) {
       return (
-        <div key={item.value} className={`divider divider-level-${level}`}>
+        <div key={`${item.value}-divider_${level}`} className={`divider divider-level-${level}`}>
           { item.label }
         </div>
       )
     }
     return (
-      <div
-        key={item.value}
-        className={`item item-level-${level} ${item.active ? 'active' : ''}`}>
+        <div
+          key={`${item.value}_${level}`}
+          className={`item item-level-${level} ${item.active ? 'active' : ''}`}>
         <div
           className="item-title"
           onClick={this.onItemClick(item)}>
           { this.handleRenderMenuItemContent(item) }
         </div>
         {/* render children */}
-        <div className={`children ${item.active ? 'active' : 'inactive'}`}>
+        <div key={`${item.value}-children-level-${level}`} className={`children ${item.active ? 'active' : 'inactive'}`}>
           {item.children && item.children.map((child) =>
             this.renderItem(child, level + 1)
           )}
